@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 1 - JavaScript and jQuery Comparison</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Exercise 1: JavaScript and jQuery Comparison</h1>
+    <p>This page demonstrates JavaScript functionality rewritten using jQuery.</p>
+    <h2>Click Event Example</h2>
+<label for="score">Enter your score:</label>
+<input type="text" id="score">
+<button id="calculate">Enter a Score</button>
+<p id="result"></p>
+<script>
+$(document).ready(function() {
+    $("#calculate").click(function() {
+        var score = $("#score").val();
+        var grade;
+        if (score >= 90) {
+            grade = "A";
+        } else if (score >= 80) {
+            grade = "B";
+        } else if (score >= 70) {
+            grade = "C";
+        } else 
+            grade = "F";        }
+      $("#result").html("Your score is " + score + " and your grade is " + grade);
+   });
+});
+</script
+<h2>DOM Manipulation Example</h2>
+<a id="w3cLink" href="https://www.w3.org/">W3C Website</a>
+<p id="display"></p>
+<button id="showInfo">Show Link Information</button>
+<script>
+$(document).ready(function() {
+    $("#showInfo").click(function() {
+        $("#display").html(
+            "Link text: " + $("#w3cLink").text() +
+            "<br>Link HTML: " + $("#w3cLink").html() +
+            "<br>Link href: " + $("#w3cLink").attr("href")
+        );
+    });
+});
+</script>
+<h2>CSS Manipulation Example</h2>
+<p id="styleResult">Click the buttons to change my style!</p>
+<button id="changeColor">Change Color</button>
+<button id="changeSize">Change Size</button>
+<button id="changeBorder">Change Border</button>
+<script>
+$(document).ready(function() {
+    $("#changeColor").click(function() {
+        $("#styleResult").css("background-color", "lightblue");
+    });
+    $("#changeSize").click(function() {
+        $("#styleResult").css("font-size", "30px");
+    });
+    $("#changeBorder").click(function() {
+        $("#styleResult").css("border", "3px solid black");
+    });
+});
+</script>
+<hr>
+<p><a href="index.html">Back to Lab2</a></p>
+</body>
+</html>
