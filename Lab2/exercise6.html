@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 6 - jQuery Calculator Application</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Exercise 6: jQuery Calculator Application</h1>
+    <p>
+        <label>First Number:</label>
+        <input type="text" id="number1">
+    </p>
+    <p>
+        <label>Second Number:</label>
+        <input type="text" id="number2">
+    </p>
+    <p>
+        <label>Choose an Operation:</label>
+        <select id="operation">
+            <option value="add">Addition (+)</option>
+            <option value="subtract">Subtraction (-)</option>
+            <option value="multiply">Multiplication (*)</option>
+            <option value="divide">Division (/)</option>
+        </select>
+    </p>
+    <p>
+        <label>Result Color:</label>
+        <input type="text" id="resultColor" placeholder="Example: red">
+    </p>
+    <button id="calculateButton">Calculate</button>
+    <p id="error"></p>
+    <p id="result"></p>
+    <script>
+        $(document).ready(function() {
+            $("#calculateButton").click(function() {
+                var value1 = $("#number1").val();
+                var value2 = $("#number2").val();
+                var operation = $("#operation").val();
+                var color = $("#resultColor").val();
+                $("#error").text("");
+                $("#result").text("");
+                if (value1 === "" || value2 === "") {
+                    $("#error")
+                        .text("Please enter a value in both number fields.")
+                        .css("color", "red");
+                    return;
+                }
+                var number1 = parseFloat(value1);
+                var number2 = parseFloat(value2);
+                if (isNaN(number1) || isNaN(number2)) {
+                    $("#error")
+                        .text("Please enter valid numbers.")
+                        .css("color", "red");
+                    return;
+                }
+                if (operation === "divide" && number2 === 0) {
+                    $("#error")
+                        .text("Cannot divide by zero.")
+                        .css("color", "red");
+                    return;
+                }
+                var answer;
+                if (operation === "add") {
+                    answer = number1 + number2;
+                }
+                else if (operation === "subtract") {
+                    answer = number1 - number2;
+                }
+                else if (operation === "multiply") {
+                    answer = number1 * number2;
+                }
+                else if (operation === "divide") {
+                    answer = number1 / number2;
+                }
+                $("#result")
+                    .text("Result: " + answer)
+                    .css("color", color || "black");
+            });
+        });
+    </script>
+    <hr>
+    <p><a href="index.html">Back to Lab 2</a></p>
+</body>
+</html>
+
