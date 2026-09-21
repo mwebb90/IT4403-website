@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 5 - jQuery Visual Effects</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Exercise 5: jQuery Visual Effects</h1>
+    <p id="effectText">
+        This paragraph will be used to demonstrate jQuery visual effects.
+    </p>
+    <button id="hideButton">Hide</button>
+    <button id="showButton">Show</button>
+    <button id="toggleButton">Toggle</button>
+    <button id="fadeButton">Fade</button>
+    <button id="slideButton">Slide</button>
+
+  <script>
+$(document).ready(function() {
+    $("#hideButton").click(function() {
+        $("#effectText").hide();
+    });
+    $("#showButton").click(function() {
+        $("#effectText").show();
+    });
+    $("#toggleButton").click(function() {
+        $("#effectText").toggle();
+    });
+    $("#fadeButton").click(function() {
+        $("#effectText").fadeToggle();
+    });
+    $("#slideButton").click(function() {
+        $("#effectText").slideToggle();
+    });
+});
+</script>
+</body>
+
+</html>
