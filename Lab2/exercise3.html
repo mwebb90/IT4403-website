@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 3 - jQuery Selectors, DOM, and CSS</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1 id="heading">Exercise 3: jQuery Selectors, DOM, and CSS</h1>
+<p id="paragraph1">This paragraph has an ID.</p>
+<p class="example">This paragraph uses the example class.</p>
+<p class="example">This is another paragraph using the example class.</p>
+<ul>
+    <li>jQuery Selectors</li>
+    <li>DOM Manipulation</li>
+    <li>CSS Manipulation</li>
+</ul>
+<a id="myLink" href="https://www.kennesaw.edu/">Kennesaw State University</a>
+<br><br>
+<button id="selectorButton">Test Selectors</button>
+<button id="domButton">Change Content</button>
+<button id="attributeButton">Change Link</button>
+<button id="hideButton">Hide</button>
+<button id="showButton">Show</button>
+<button id="toggleButton">Toggle</button>
+<button id="cssButton">Change CSS</button>
+<p id="result">Results will appear here.</p>
+<script>
+$(document).ready(function() {
+    $("#selectorButton").click(function() {
+        $("#paragraph1").css("background-color", "lightyellow");
+        $(".example").css("color", "blue");
+        $("li").css("font-size", "20px");
+    });
+    $("#domButton").click(function() {
+        var text = $("#paragraph1").text();
+        var html = $("#heading").html();
+        $("#result").html(
+            "Paragraph text: " + text +
+            "<br>Heading HTML: " + html
+        );
+        $("#paragraph1").text("The paragraph text has been changed!");
+    });
+    $("#attributeButton").click(function() {
+        var link = $("#myLink").attr("href");
+        $("#result").text("Original link: " + link);
+        $("#myLink").attr("href", "https://ccse.kennesaw.edu/it/");
+    });
+    $("#hideButton").click(function() {
+        $("#paragraph1").hide();
+    });
+    $("#showButton").click(function() {
+        $("#paragraph1").show();
+    });
+    $("#toggleButton").click(function() {
+        $("#paragraph1").toggle();
+    });
+    $("#cssButton").click(function() {
+        $("#paragraph1").css({
+            "background-color": "lightblue",
+            "color": "darkblue",
+            "font-size": "24px",
+            "border": "3px solid black",
+            "width": "400px"
+        });
+    });
+});
+</script>
+<hr>
+<p><a href="index.html">Back to Lab 2</a></p>
+</body>
+
+</html>
