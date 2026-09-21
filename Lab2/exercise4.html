@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 4 - Table Selection and Event Handling</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>Exercise 4: Table Selection and Event Handling</h1>
+<p>Click a table row to hide that row.</p>
+<table id="myTable" border="1">
+    <tr>
+        <th>Name</th>
+        <th>Favorite Color</th>
+        <th>Favorite Food</th>
+    </tr>
+    <tr>
+        <td>Emma</td>
+        <td>Blue</td>
+        <td>Pizza</td>
+    </tr>
+    <tr>
+        <td>Liam</td>
+        <td>Green</td>
+        <td>Tacos</td>
+    </tr>
+    <tr>
+        <td>Olivia</td>
+        <td>Purple</td>
+        <td>Pasta</td>
+    </tr>
+    <tr>
+        <td>Noah</td>
+        <td>Red</td>
+        <td>Burgers</td>
+    </tr>
+    <tr>
+        <td>Ava</td>
+        <td>Pink</td>
+        <td>Chicken</td>
+    </tr>
+</table>
+<br>
+<button id="hideOdd">Hide Odd Rows</button>
+<button id="showOdd">Restore Odd Rows</button>
+<script>
+$(document).ready(function() {
+    // Select and style the odd data rows
+    $("#myTable tr:gt(0):odd").css({
+        "background-color": "lightblue",
+        "font-style": "italic"
+    });
+    // Hide the odd rows
+    $("#hideOdd").click(function() {
+        $("#myTable tr:gt(0):odd").hide();
+    });
+    // Restore the odd rows
+    $("#showOdd").click(function() {
+        $("#myTable tr:gt(0):odd").show();
+    });
+    // Hide only the row that is clicked
+    $("#myTable tr:gt(0)").click(function() {
+        $(this).hide();
+    });
+});
+</script>
+<hr>
+<p><a href="index.html">Back to Lab 2</a></p>
+</body>
+
+</html>
