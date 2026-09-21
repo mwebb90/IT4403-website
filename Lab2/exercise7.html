@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 7 - Picture Browser Application</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #picture {
+            width: 500px;
+            max-width: 90%;
+            height: 350px;
+            object-fit: cover;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercise 7: Picture Browser Application</h1>
+    <p>Use the buttons below to browse through the pictures.</p>
+    <img id="picture" src="" alt="Picture Browser">
+    <br>
+    <button id="previousButton">Previous</button>
+    <button id="nextButton">Next</button>
+    <p id="pictureNumber"></p>
+    <script>
+        $(document).ready(function() {
+            // Array containing image URLs
+            var pictures = [
+                "https://picsum.photos/id/10/600/400",
+                "https://picsum.photos/id/29/600/400",
+                "https://picsum.photos/id/42/600/400",
+                "https://picsum.photos/id/65/600/400",
+                "https://picsum.photos/id/103/600/400"
+            ];
+            var currentPicture = 0;
+            function showPicture() {
+                $("#picture").fadeOut(300, function() {
+                    $("#picture").attr("src", pictures[currentPicture]);
+                    $("#pictureNumber").text(
+                        "Picture " + (currentPicture + 1) +
+                        " of " + pictures.length
+                    );
+                    $("#picture").fadeIn(300);
+                });
+            }
+            // Display first picture
+            showPicture();
+            // Next button
+            $("#nextButton").click(function() {
+                currentPicture++;
+                if (currentPicture >= pictures.length) {
+                    currentPicture = 0;
+                }
+                showPicture();
+            });
+            // Previous button
+            $("#previousButton").click(function() {
+                currentPicture--;
+                if (currentPicture < 0) {
+                    currentPicture = pictures.length - 1;
+                }
+                showPicture();
+            });
+        });
+    </script>
+    <hr>
+    <p>
+        Images provided by Picsum Photos for demonstration purposes.
+    </p>
+    <p>
+        <a href="index.html">Back to Lab 2</a>
+    </p>
+</body>
+</html>
