@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 3 - Exercise 1</title>
+</head>
+<body>
+    <h1>Exercise 1: Explore and Understand JSON Structure</h1>
+    <h2>Library Book JSON</h2>
+    <p>
+        The JSON data is organized as an object containing information
+        about a book. The book in the file is Fantastic Mr. Fox.
+        The data contains name/value pairs, arrays, objects, and nested
+        structures.
+    </p>
+    <h2>Name/Value Pair</h2>
+    <p>A simple name/value pair from the JSON is:</p>
+    <pre>"title": "Fantastic Mr. Fox"</pre>
+    <h2>Object</h2>
+    <p>The identifiers property contains an object:</p>
+    <pre>
+"identifiers": {
+    "goodreads": ["1507552"],
+    "librarything": ["6446"]
+}
+    </pre>
+    <h2>Array</h2>
+    <p>The publishers property contains an array:</p>
+    <pre>"publishers": ["Puffin"]</pre>
+    <h2>Nested Structure</h2>
+    <p>
+        The JSON also contains objects nested inside the main book object.
+        For example, first_sentence contains additional information:
+    </p>
+    <pre>
+"first_sentence": {
+    "type": "/type/text",
+    "value": "Down in the valley there were three farms."
+}
+    </pre>
+    <h2>Overall Organization</h2>
+    <p>
+        The JSON begins with one main object. Inside the object are
+        properties that store simple values such as text and numbers,
+        arrays that contain collections of values, and nested objects
+        that contain additional structured information.
+    </p>
+</body>
+
+</html>
