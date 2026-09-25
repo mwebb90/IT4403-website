@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 3 - Exercise 3</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Exercise 3: Read JSON Values with JavaScript/jQuery</h1>
+    <h2 id="bookTitle"></h2>
+    <p id="bookAuthor"></p>
+    <p id="bookPrice"></p>
+    <script>
+        $(document).ready(function () {
+            const book = {
+                "title": "Understanding JSON",
+                "author": "Sofia Patel",
+                "price": 24.95
+            };
+            $("#bookTitle").text(book.title);
+            $("#bookAuthor").text("Author: " + book.author);
+            $("#bookPrice").text("Price: $" + book.price);
+        });
+    </script>
+</body>
+</html>
