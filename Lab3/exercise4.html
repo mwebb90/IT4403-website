@@ -10,26 +10,48 @@
     <h2>Student Information</h2>
     <p id="studentName"></p>
     <p id="studentMajor"></p>
-    <p id="courseName"></p>
-    <p id="courseGrade"></p>
+    <p id="studentEmail"></p>
+    <h2>Courses</h2>
+    <div id="courseList"></div>
     <script>
         $(document).ready(function () {
             const student = {
                 "name": "Alex Johnson",
                 "major": "Information Technology",
-                "course": {
-                    "name": "Web Development",
-                    "grade": "A"
-                }
+                "email": "alex.johnson@example.com",
+                "courses": [
+                    {
+                        "code": "IT 4403",
+                        "title": "Web Development",
+                        "creditHours": 3
+                    },
+                    {
+                        "code": "IT 3203",
+                        "title": "Introduction to Web Development",
+                        "creditHours": 3
+                    },
+                    {
+                        "code": "IT 3423",
+                        "title": "Operating Systems",
+                        "creditHours": 3
+                    }
+                ]
             };
             $("#studentName").text("Student: " + student.name);
             $("#studentMajor").text("Major: " + student.major);
-            $("#courseName").text(
-                "Course: " + student.course.name
-            );
-            $("#courseGrade").text(
-                "Grade: " + student.course.grade
-            );
+            $("#studentEmail").text("Email: " + student.email);
+            let output = "";
+            for (let i = 0; i < student.courses.length; i++) {
+                output +=
+                    "<p><strong>Course Code:</strong> " +
+                    student.courses[i].code +
+                    "<br><strong>Course Title:</strong> " +
+                    student.courses[i].title +
+                    "<br><strong>Credit Hours:</strong> " +
+                    student.courses[i].creditHours +
+                    "</p>";
+            }
+            $("#courseList").html(output);
         });
     </script>
 </body>
