@@ -6,20 +6,50 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <h1>Exercise 3: Read JSON Values with JavaScript/jQuery</h1>
-    <h2 id="bookTitle"></h2>
-    <p id="bookAuthor"></p>
-    <p id="bookPrice"></p>
+    <h1>Exercise 3: Read JSON Values Using JavaScript/jQuery</h1>
+    <h2>First Book</h2>
+    <p id="firstTitle"></p>
+    <p id="firstAuthor"></p>
+    <p id="firstPrice"></p>
+    <h2>All Books</h2>
+    <div id="bookList"></div>
+    <p id="totalBooks"></p>
     <script>
         $(document).ready(function () {
-            const book = {
-                "title": "Understanding JSON",
-                "author": "Sofia Patel",
-                "price": 24.95
+            const bookData = {
+                "books": [
+                    {
+                        "title": "Web Development Basics",
+                        "author": "Maya Lee",
+                        "price": 29.99
+                    },
+                    {
+                        "title": "Modern JavaScript",
+                        "author": "Daniel Kim",
+                        "price": 34.50
+                    },
+                    {
+                        "title": "Understanding JSON",
+                        "author": "Sofia Patel",
+                        "price": 24.95
+                    }
+                ]
             };
-            $("#bookTitle").text(book.title);
-            $("#bookAuthor").text("Author: " + book.author);
-            $("#bookPrice").text("Price: $" + book.price);
+            $("#firstTitle").text("Title: " + bookData.books[0].title);
+            $("#firstAuthor").text("Author: " + bookData.books[0].author);
+            $("#firstPrice").text("Price: $" + bookData.books[0].price.toFixed(2));
+            let output = "";
+            for (let i = 0; i < bookData.books.length; i++) {
+                output += "<p><strong>" +
+                    bookData.books[i].title +
+                    "</strong> by " +
+                    bookData.books[i].author +
+                    "</p>";
+            }
+            $("#bookList").html(output);
+            $("#totalBooks").text(
+                "Total number of books: " + bookData.books.length
+            );
         });
     </script>
 </body>
