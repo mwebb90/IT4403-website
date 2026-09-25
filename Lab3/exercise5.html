@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 3 - Exercise 5</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Exercise 5: Read and Display JSON from a File</h1>
+    <h2>Weather Information</h2>
+    <div id="weather">
+        <p>Loading weather data...</p>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("weather.json", function (data) {
+                let temperatureC = data.main.temp - 273.15;
+                let temperatureF = (temperatureC * 9 / 5) + 32;
+                let weatherHTML = "";
+                weatherHTML += "<h3>" + data.name + "</h3>";
+                weatherHTML += "<p><strong>Temperature:</strong> "
+                    + temperatureF.toFixed(1) + "°F</p>";
+                weatherHTML += "<p><strong>Weather Conditions:</strong> "
+                    + data.weather[0].description + "</p>";
+                weatherHTML += "<p><strong>Humidity:</strong> "
+                    + data.main.humidity + "%</p>";
+                weatherHTML += "<p><strong>Wind Speed:</strong> "
+                    + data.wind.speed + " m/s</p>";
+                weatherHTML += "<p><strong>Cloudiness:</strong> "
+                    + data.clouds.all + "%</p>";
+                $("#weather").html(weatherHTML);
+            });
+        });
+    </script>
+</body>
+</html>
