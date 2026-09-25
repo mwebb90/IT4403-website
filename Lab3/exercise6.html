@@ -17,31 +17,39 @@
                 movieHTML += "<h2>" + data.title + "</h2>";
                 movieHTML += "<p><strong>Year:</strong> "
                     + data.year + "</p>";
+                movieHTML += "<p><strong>MPAA Rating:</strong> "
+                    + data.mpaa_rating + "</p>";
+                movieHTML += "<p><strong>Runtime:</strong> "
+                    + data.runtime + " minutes</p>";
+                movieHTML += "<p><strong>Release Date:</strong> "
+                    + data.release_dates.theater + "</p>";
                 movieHTML += "<p><strong>Genres:</strong> "
                     + data.genres.join(", ") + "</p>";
-                movieHTML += "<p><strong>Rated:</strong> "
-                    + data.rated + "</p>";
-                movieHTML += "<p><strong>Runtime:</strong> "
-                    + data.runtime + "</p>";
                 movieHTML += "<p><strong>Director:</strong> "
-                    + data.director + "</p>";
-                movieHTML += "<p><strong>Plot:</strong> "
-                    + data.plot + "</p>";
+                    + data.abridged_directors[0].name + "</p>";
+                movieHTML += "<h3>Synopsis</h3>";
+                movieHTML += "<p>" + data.synopsis + "</p>";
                 movieHTML += "<h3>Ratings</h3>";
+                movieHTML += "<p><strong>Critics Rating:</strong> "
+                    + data.ratings.critics_rating + "</p>";
+                movieHTML += "<p><strong>Critics Score:</strong> "
+                    + data.ratings.critics_score + "</p>";
+                movieHTML += "<p><strong>Audience Rating:</strong> "
+                    + data.ratings.audience_rating + "</p>";
+                movieHTML += "<p><strong>Audience Score:</strong> "
+                    + data.ratings.audience_score + "</p>";
+                movieHTML += "<h3>Cast</h3>";
                 movieHTML += "<ul>";
-                $.each(data.ratings, function (index, rating) {
+                $.each(data.abridged_cast, function (index, actor) {
                     movieHTML += "<li>"
-                        + rating.source + ": "
-                        + rating.value
+                        + actor.name
+                        + " as "
+                        + actor.characters.join(", ")
                         + "</li>";
                 });
                 movieHTML += "</ul>";
-                movieHTML += "<h3>Cast</h3>";
-                movieHTML += "<ul>";
-                $.each(data.actors, function (index, actor) {
-                    movieHTML += "<li>" + actor + "</li>";
-                });
-                movieHTML += "</ul>";
+                movieHTML += "<p><strong>Studio:</strong> "
+                    + data.studio + "</p>";
                 $("#movie").html(movieHTML);
             });
         });
