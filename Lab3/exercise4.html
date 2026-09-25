@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 3 - Exercise 4</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Exercise 4: Nested JSON Data</h1>
+    <h2>Student Information</h2>
+    <p id="studentName"></p>
+    <p id="studentMajor"></p>
+    <p id="courseName"></p>
+    <p id="courseGrade"></p>
+    <script>
+        $(document).ready(function () {
+            const student = {
+                "name": "Alex Johnson",
+                "major": "Information Technology",
+                "course": {
+                    "name": "Web Development",
+                    "grade": "A"
+                }
+            };
+            $("#studentName").text("Student: " + student.name);
+            $("#studentMajor").text("Major: " + student.major);
+            $("#courseName").text(
+                "Course: " + student.course.name
+            );
+            $("#courseGrade").text(
+                "Grade: " + student.course.grade
+            );
+        });
+    </script>
+</body>
+</html>
