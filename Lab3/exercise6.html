@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 3 - Exercise 6</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Exercise 6: Movie Information Page</h1>
+    <div id="movie">
+        <p>Loading movie information...</p>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("movie.json", function (data) {
+                let movieHTML = "";
+                movieHTML += "<h2>" + data.title + "</h2>";
+                movieHTML += "<p><strong>Year:</strong> "
+                    + data.year + "</p>";
+                movieHTML += "<p><strong>Genres:</strong> "
+                    + data.genres.join(", ") + "</p>";
+                movieHTML += "<p><strong>Rated:</strong> "
+                    + data.rated + "</p>";
+                movieHTML += "<p><strong>Runtime:</strong> "
+                    + data.runtime + "</p>";
+                movieHTML += "<p><strong>Director:</strong> "
+                    + data.director + "</p>";
+                movieHTML += "<p><strong>Plot:</strong> "
+                    + data.plot + "</p>";
+                movieHTML += "<h3>Ratings</h3>";
+                movieHTML += "<ul>";
+                $.each(data.ratings, function (index, rating) {
+                    movieHTML += "<li>"
+                        + rating.source + ": "
+                        + rating.value
+                        + "</li>";
+                });
+                movieHTML += "</ul>";
+                movieHTML += "<h3>Cast</h3>";
+                movieHTML += "<ul>";
+                $.each(data.actors, function (index, actor) {
+                    movieHTML += "<li>" + actor + "</li>";
+                });
+                movieHTML += "</ul>";
+                $("#movie").html(movieHTML);
+            });
+        });
+    </script>
+</body>
+</html>
