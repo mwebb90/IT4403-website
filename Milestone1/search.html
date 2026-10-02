@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search Results</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 85%;
+            max-width: 1000px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .intro {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .book-card {
+            background-color: white;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            overflow: auto;
+        }
+        .book-card img {
+            width: 120px;
+            float: left;
+            margin-right: 25px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .book-card h2 {
+            margin-top: 0;
+        }
+        .book-card p {
+            line-height: 1.6;
+        }
+        a {
+            color: #3366cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .navigation {
+            margin: 35px 0;
+        }
+        .error {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            color: #b00020;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Open Library Book Search Results</h1>
+    <p class="intro">
+        Results from the provided Open Library search for "modern web."
+    </p>
+    <div id="search-results">
+        <p>Loading search results...</p>
+    </div>
+    <div class="navigation">
+        <a href="index.html">← Back to Milestone 1 Home</a>
+    </div>
+</div>
+<script>
+$(document).ready(function () {
+    $.getJSON("openlibrary-search.json")
+        .done(function (data) {
+            var books = data.docs || [];
+            var html = "";
+            if (books.length === 0) {
+                $("#search-results").html(
+                    '<p class="error">No book results were found.</p>'
+                );
+                return;
+            }
+            $.each(books, function (index, book) {
+                var title = book.title || "Not available";
+                var authors =
+                    book.author_name && book.author_name.length
+                    ? book.author_name.join(", ")
+                    : "Not available";
+                var firstYear =
+                    book.first_publish_year || "Not available";
+                var publishers =
+                    book.publisher && book.publisher.length
+                    ? book.publisher.join(", ")
+                    : "Not available";
+                var editionCount =
+                    book.edition_count || "Not available";
+                var isbn =
+                    book.isbn && book.isbn.length
+                    ? book.isbn[0]
+                    : "Not available";
+                var cover = "";
+                if (book.cover_i) {
+                    cover =
+                        '<img src="https://covers.openlibrary.org/b/id/' +
+                        book.cover_i +
+                        '-M.jpg" alt="Cover of ' +
+                        title +
+                        '">';
+                }
+                var recordLink =
+                    book.key
+                    ? "https://openlibrary.org" + book.key
+                    : "#";
+                html +=
+                    '<div class="book-card">' +
+                    cover +
+                    "<h2>" + title + "</h2>" +
+                    "<p><strong>Author(s):</strong> " +
+                    authors + "</p>" +
+                    "<p><strong>First Publication Year:</strong> " +
+                    firstYear + "</p>" +
+                    "<p><strong>Publisher(s):</strong> " +
+                    publishers + "</p>" +
+                    "<p><strong>Edition Count:</strong> " +
+                    editionCount + "</p>" +
+                    "<p><strong>ISBN:</strong> " +
+                    isbn + "</p>" +
+                    "<p><strong>Open Library Record:</strong> " +
+                    '<a href="' + recordLink +
+                    '" target="_blank">View Record</a></p>' +
+                    "</div>";
+            });
+            $("#search-results").html(html);
+        })
+        .fail(function () {
+            $("#search-results").html(
+                '<p class="error">Unable to load the search results.</p>'
+            );
+        });
+});
+</script>
+</body>
+
+</html>
