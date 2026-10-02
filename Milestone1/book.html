@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Book Data</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            max-width: 850px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        #book-info {
+            margin-top: 30px;
+        }
+        #book-info img {
+            max-width: 220px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .details {
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.7;
+        }
+        .details strong {
+            color: #333;
+        }
+        a {
+            color: #3366cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .navigation {
+            margin-top: 35px;
+        }
+        .error {
+            color: #b00020;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Single Book Data</h1>
+    <p>Book information loaded from Open Library JSON data.</p>
+    <div id="book-info">
+        <p>Loading book information...</p>
+    </div>
+    <div class="navigation">
+        <a href="index.html">← Back to Milestone 1 Home</a>
+    </div>
+</div>
+<script>
+$(document).ready(function () {
+    $.getJSON("openlibrary-book.json")
+        .done(function (book) {
+            var title = book.title || "Not available";
+            var publishers =
+                book.publishers && book.publishers.length
+                ? book.publishers.join(", ")
+                : "Not available";
+            var publishDate = book.publish_date || "Not available";
+            var pages = book.number_of_pages || "Not available";
+            var isbn10 =
+                book.isbn_10 && book.isbn_10.length
+                ? book.isbn_10.join(", ")
+                : "Not available";
+            var isbn13 =
+                book.isbn_13 && book.isbn_13.length
+                ? book.isbn_13.join(", ")
+                : "Not available";
+            var cover = "";
+            if (book.covers && book.covers.length) {
+                cover =
+                    '<img src="https://covers.openlibrary.org/b/id/' +
+                    book.covers[0] +
+                    '-L.jpg" alt="Cover of ' +
+                    title +
+                    '">';
+            }
+            var author =
+                book.authors && book.authors.length
+                ? book.authors[0].key
+                : "Not available";
+            var firstSentence = "Not available";
+            if (book.first_sentence) {
+                if (typeof book.first_sentence === "string") {
+                    firstSentence = book.first_sentence;
+                } else if (book.first_sentence.value) {
+                    firstSentence = book.first_sentence.value;
+                }
+            }
+            var openLibraryLink =
+                book.key
+                ? "https://openlibrary.org" + book.key
+                : "#";
+            var html =
+                "<h2>" + title + "</h2>" +
+                cover +
+                '<div class="details">' +
+                "<p><strong>Publisher:</strong> " + publishers + "</p>" +
+                "<p><strong>Publication Date:</strong> " + publishDate + "</p>" +
+                "<p><strong>Page Count:</strong> " + pages + "</p>" +
+                "<p><strong>ISBN-10:</strong> " + isbn10 + "</p>" +
+                "<p><strong>ISBN-13:</strong> " + isbn13 + "</p>" +
+                "<p><strong>Author Reference:</strong> " + author + "</p>" +
+                "<p><strong>First Sentence:</strong> " + firstSentence + "</p>" +
+                "<p><strong>Open Library Record:</strong> " +
+                '<a href="' + openLibraryLink +
+                '" target="_blank">View Book Record</a></p>' +
+                "</div>";
+            $("#book-info").html(html);
+        })
+        .fail(function () {
+            $("#book-info").html(
+                '<p class="error">Unable to load the book information.</p>'
+            );
+        });
+});
+</script>
+</body>
+
+</html>
