@@ -171,7 +171,7 @@
         }
         const photos = await photoResponse.json();
         description.textContent =
-          `Album #${album.id} | ${photos.length} Photos`;
+          `Album #${album.id} | User ID: ${album.userId} | ${photos.length} Photos`;
         if (photos.length === 0) {
           grid.textContent = "No photos found.";
           return;
