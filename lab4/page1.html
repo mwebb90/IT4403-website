@@ -2,57 +2,204 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lab 4 - User Albums</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Albums | Lab 4</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f7f8f5;
+      color: #243746;
+    }
+    header {
+      background: linear-gradient(135deg, #17324d, #236b73);
+      color: white;
+      padding: 55px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 36px;
+      margin: 0 0 12px;
+    }
+    header p {
+      color: #d8eeee;
+      font-size: 16px;
+    }
+    main {
+      max-width: 1150px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+    .section-card {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: #17324d;
+      margin-top: 0;
+      border-bottom: 2px solid #e3eeee;
+      padding-bottom: 12px;
+    }
+    .user-details {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit, minmax(240px, 1fr)
+      );
+      gap: 15px;
+    }
+    .detail {
+      background: #f7f8f5;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-wrap: anywhere;
+    }
+    .detail strong {
+      display: block;
+      color: #236b73;
+      margin-bottom: 6px;
+    }
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit, minmax(240px, 1fr)
+      );
+      gap: 18px;
+    }
+    .album-card {
+      display: block;
+      background: #f7f8f5;
+      padding: 22px;
+      border-radius: 12px;
+      border-left: 5px solid #236b73;
+      text-decoration: none;
+      color: #17324d;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .album-card:hover {
+      background: #e3eeee;
+      transform: translateY(-4px);
+    }
+    .album-card span {
+      display: block;
+      color: #687782;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .status {
+      color: #687782;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #687782;
+      font-size: 13px;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>User Information</h1>
-  <div id="userInfo">Loading user...</div>
-  <h2>User Albums</h2>
-  <ul id="albumList"></ul>
+  <header>
+    <h1>User & Album Explorer</h1>
+    <p>RESTful Web APIs | Lab 4</p>
+  </header>
+  <main>
+    <section class="section-card">
+      <h2>User Information</h2>
+      <div id="userInfo" class="user-details">
+        <p class="status">Loading user information...</p>
+      </div>
+    </section>
+    <section class="section-card">
+      <h2>Album Collection</h2>
+      <p>Select an album to explore its photos.</p>
+      <div id="albumList" class="album-grid">
+        <p class="status">Loading albums...</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Lab 4 | Advanced Web & Mobile App Development
+  </footer>
   <script>
+    function addDetail(container, label, value) {
+      const detail = document.createElement("div");
+      detail.className = "detail";
+      const heading = document.createElement("strong");
+      heading.textContent = label;
+      const content = document.createElement("span");
+      content.textContent = value;
+      detail.appendChild(heading);
+      detail.appendChild(content);
+      container.appendChild(detail);
+    }
     async function loadData() {
+      const userInfo = document.getElementById("userInfo");
+      const albumList = document.getElementById("albumList");
       try {
         const userResponse = await fetch(
           "https://jsonplaceholder.typicode.com/users/1"
         );
-        if (!userResponse.ok) throw new Error("User request failed");
+        if (!userResponse.ok) {
+          throw new Error("Unable to retrieve user");
+        }
         const user = await userResponse.json();
-        document.getElementById("userInfo").innerHTML = `
-          <p><strong>Name:</strong> ${user.name}</p>
-          <p><strong>Username:</strong> ${user.username}</p>
-          <p><strong>Email:</strong> ${user.email}</p>
-          <p><strong>Address:</strong>
-            ${user.address.street},
-            ${user.address.suite},
-            ${user.address.city},
-            ${user.address.zipcode}</p>
-          <p><strong>Phone:</strong> ${user.phone}</p>
-          <p><strong>Website:</strong> ${user.website}</p>
-          <p><strong>Company:</strong> ${user.company.name}</p>
-        `;
+        userInfo.innerHTML = "";
+        addDetail(userInfo, "Name", user.name);
+        addDetail(userInfo, "Username", user.username);
+        addDetail(userInfo, "Email", user.email);
+        const address = [
+          user.address.street,
+          user.address.suite,
+          user.address.city,
+          user.address.zipcode
+        ].join(", ");
+        addDetail(userInfo, "Address", address);
+        addDetail(userInfo, "Phone", user.phone);
+        addDetail(userInfo, "Website", user.website);
+        addDetail(userInfo, "Company", user.company.name);
         const albumResponse = await fetch(
           `https://jsonplaceholder.typicode.com/albums?userId=${user.id}`
         );
-        if (!albumResponse.ok) throw new Error("Album request failed");
+        if (!albumResponse.ok) {
+          throw new Error("Unable to retrieve albums");
+        }
         const albums = await albumResponse.json();
-        const albumList = document.getElementById("albumList");
+        albumList.innerHTML = "";
         albums.forEach(album => {
-          const item = document.createElement("li");
           const link = document.createElement("a");
+          link.className = "album-card";
           link.href = `page2.html?albumId=${album.id}`;
-          link.textContent = album.title;
-          item.appendChild(link);
-          albumList.appendChild(item);
+          const number = document.createElement("span");
+          number.textContent = `ALBUM #${album.id}`;
+          const title = document.createElement("div");
+          title.textContent = album.title;
+          link.appendChild(number);
+          link.appendChild(title);
+          albumList.appendChild(link);
         });
       } catch (error) {
-        document.getElementById("userInfo").textContent =
-          "Unable to load data. Please try again.";
         console.error(error);
+        if (!userInfo.children.length ||
+            userInfo.querySelector(".status")) {
+          userInfo.textContent =
+            "Unable to load user information.";
+        }
+        albumList.textContent =
+          "Unable to load albums. Please try again.";
       }
     }
     loadData();
   </script>
 </body>
-
 </html>
