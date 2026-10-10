@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Album Gallery | Lab 4</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f7f8f5;
+      color: #243746;
+    }
+    header {
+      background: linear-gradient(135deg, #17324d, #236b73);
+      color: white;
+      padding: 55px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 36px;
+      margin: 0 0 12px;
+    }
+    header p {
+      color: #d8eeee;
+      font-size: 16px;
+    }
+    main {
+      max-width: 1150px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+    .back-button {
+      display: inline-block;
+      background: #236b73;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+    .back-button:hover {
+      background: #17324d;
+    }
+    .album-info {
+      background: white;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+    .album-info h2 {
+      color: #17324d;
+      margin-top: 0;
+    }
+    .album-info p {
+      color: #687782;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit, minmax(210px, 1fr)
+      );
+      gap: 22px;
+    }
+    .photo-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+      transition: transform 0.2s;
+    }
+    .photo-card:hover {
+      transform: translateY(-5px);
+    }
+    .photo-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #e7eeee;
+    }
+    .photo-card p {
+      padding: 15px;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .status {
+      color: #687782;
+      text-align: center;
+      padding: 25px;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 45px;
+      color: #687782;
+      font-size: 13px;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 28px;
+      }
+      .photo-grid {
+        grid-template-columns: repeat(
+          auto-fit, minmax(150px, 1fr)
+        );
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Album Gallery</h1>
+    <p>RESTful Web APIs | Lab 4</p>
+  </header>
+  <main>
+    <a class="back-button" href="page1.html">
+      &larr; Back to Albums
+    </a>
+    <section class="album-info">
+      <h2 id="albumTitle">Loading Album...</h2>
+      <p id="albumDescription">
+        Retrieving album information.
+      </p>
+    </section>
+    <div id="photoGrid" class="photo-grid"></div>
+  </main>
+  <footer>
+    Lab 4 | Advanced Web & Mobile App Development
+  </footer>
+  <script>
+    async function loadAlbum() {
+      const params = new URLSearchParams(
+        window.location.search
+      );
+      const albumId = params.get("albumId");
+      const title = document.getElementById(
+        "albumTitle"
+      );
+      const description = document.getElementById(
+        "albumDescription"
+      );
+      const grid = document.getElementById(
+        "photoGrid"
+      );
+      if (!albumId || !/^\d+$/.test(albumId)) {
+        title.textContent = "No Album Selected";
+        description.textContent =
+          "Please return to Page 1 and select an album.";
+        return;
+      }
+      try {
+        const albumResponse = await fetch(
+          `https://jsonplaceholder.typicode.com/albums/${albumId}`
+        );
+        if (!albumResponse.ok) {
+          throw new Error("Album request failed");
+        }
+        const album = await albumResponse.json();
+        title.textContent = album.title;
+        const photoResponse = await fetch(
+          `https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`
+        );
+        if (!photoResponse.ok) {
+          throw new Error("Photo request failed");
+        }
+        const photos = await photoResponse.json();
+        description.textContent =
+          `Album #${album.id} | ${photos.length} Photos`;
+        if (photos.length === 0) {
+          grid.textContent = "No photos found.";
+          return;
+        }
+        photos.forEach(photo => {
+          const card = document.createElement("div");
+          card.className = "photo-card";
+          const image = document.createElement("img");
+          image.src = photo.thumbnailUrl || photo.url;
+          image.alt = photo.title;
+          image.loading = "lazy";
+          const caption = document.createElement("p");
+          caption.textContent = photo.title;
+          card.appendChild(image);
+          card.appendChild(caption);
+          grid.appendChild(card);
+        });
+      } catch (error) {
+        title.textContent = "Unable to Load Album";
+        description.textContent =
+          "There was a problem retrieving the data.";
+        console.error(error);
+      }
+    }
+    loadAlbum();
+  </script>
+</body>
+</html>
