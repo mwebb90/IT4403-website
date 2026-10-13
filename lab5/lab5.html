@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 5 | Open Library API</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #243247;
+    }
+    header {
+      background: #203b63;
+      color: white;
+      text-align: center;
+      padding: 45px 20px;
+    }
+    header h1 {
+      margin: 0 0 12px;
+      font-size: 32px;
+    }
+    header p {
+      margin: 0;
+      color: #dce6f5;
+    }
+    main {
+      max-width: 950px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+    .intro {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .book-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .book-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .book-card h3 {
+      margin-top: 0;
+      color: #203b63;
+      line-height: 1.4;
+    }
+    .book-card p {
+      color: #596579;
+    }
+    .status {
+      text-align: center;
+      color: #596579;
+    }
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #66758a;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Open Library Book Explorer</h1>
+    <p>Lab 5 | Working with REST APIs and JSON</p>
+  </header>
+  <main>
+    <section class="intro">
+      <h2>Data Analysis Books</h2>
+      <p>
+        Explore books retrieved from the Open Library API.
+        Book information is loaded dynamically using JavaScript.
+      </p>
+    </section>
+    <p id="status" class="status">Loading books...</p>
+    <div id="results" class="book-list"></div>
+  </main>
+  <footer>
+    <p>Lab 5 | Open Library API Practice</p>
+  </footer>
+  <script>
+    const apiURL =
+      "https://openlibrary.org/search.json?q=data%20analysis&limit=10";
+    const results = document.getElementById("results");
+    const status = document.getElementById("status");
+    fetch(apiURL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Unable to retrieve books.");
+        }
+        return response.json();
+      })
+      .then(data => {
+        results.innerHTML = "";
+        data.docs.forEach(book => {
+          const title = book.title || "Untitled Book";
+          const year = book.first_publish_year ?? "Year unavailable";
+          const card = document.createElement("article");
+          card.className = "book-card";
+          const heading = document.createElement("h3");
+          heading.textContent = title;
+          const publication = document.createElement("p");
+          publication.textContent = `First Published: ${year}`;
+          card.appendChild(heading);
+          card.appendChild(publication);
+          results.appendChild(card);
+        });
+        status.textContent = data.docs.length
+          ? ""
+          : "No books were found.";
+      })
+      .catch(error => {
+        status.textContent =
+          "Sorry, the books could not be loaded. Please try again.";
+        console.error("API Error:", error);
+      });
+  </script>
+</body>
+
+</html>
