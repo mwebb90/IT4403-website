@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details | Open Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="bookshelf.html">My Bookshelf</a>
+        </nav>
+    </header>
+    <!-- Main Content -->
+    <main>
+        <h1>Book Details</h1>
+        <p class="subtitle">
+            Explore more information about your selected book.
+        </p>
+        <section class="book-details" id="bookDetails">
+            <p class="message" id="detailsMessage" role="status">
+                Loading book information...
+            </p>
+            <div id="detailsContent"></div>
+        </section>
+        <!-- Return to Search -->
+        <div style="text-align: center; margin-top: 30px;">
+            <a class="button" href="index.html"
+               style="display: inline-block; text-decoration: none;">
+                Back to Book Search
+            </a>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>Milestone 2 | Open Library API Project</p>
+    </footer>
+    <!-- Book Details JavaScript -->
+    <script src="details.js"></script>
+</body>
+
+</html>
