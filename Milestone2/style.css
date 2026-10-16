@@ -1,0 +1,180 @@
+/* Milestone 2 - Open Library Website */
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #263238;
+    line-height: 1.6;
+}
+/* Navigation */
+header {
+    background-color: #f5f8fc;
+    border-bottom: 1px solid #e1e7ef;
+    padding: 18px 20px;
+}
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+nav a {
+    color: #1769aa;
+    text-decoration: none;
+    font-weight: bold;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+/* Main Layout */
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+h1, h2 {
+    text-align: center;
+    color: #263238;
+}
+h1 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+.subtitle {
+    text-align: center;
+    color: #667580;
+    margin-bottom: 35px;
+}
+/* Search Section */
+.search-section {
+    max-width: 700px;
+    margin: 35px auto;
+    text-align: center;
+}
+.search-form {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+input, select {
+    padding: 12px;
+    border: 1px solid #cbd5df;
+    border-radius: 8px;
+    font-size: 15px;
+}
+input {
+    flex: 1;
+    min-width: 220px;
+}
+/* Buttons */
+button, .button {
+    background-color: #1769aa;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover, .button:hover {
+    background-color: #104f82;
+}
+/* Book Results */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(230px, 1fr)
+    );
+    gap: 24px;
+    margin-top: 30px;
+}
+.book-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.book-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.book-card img {
+    width: 120px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+.book-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+.book-card a {
+    color: #1769aa;
+    text-decoration: none;
+    font-weight: bold;
+}
+.book-card a:hover {
+    text-decoration: underline;
+}
+/* Book Details */
+.book-details {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+.book-details img {
+    display: block;
+    max-width: 200px;
+    margin: 20px auto;
+}
+.book-details p {
+    margin-bottom: 15px;
+}
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+/* Messages */
+.message {
+    text-align: center;
+    padding: 20px;
+    color: #667580;
+}
+/* Footer */
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+    color: #667580;
+    border-top: 1px solid #e2e8f0;
+}
+/* Mobile Layout */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px;
+    }
+    nav {
+        gap: 15px;
+    }
+    .search-form {
+        flex-direction: column;
+    }
+    .book-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
