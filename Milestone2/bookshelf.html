@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookshelf | Open Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Website Navigation -->
+    <header>
+        <nav aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="bookshelf.html">My Bookshelf</a>
+        </nav>
+    </header>
+    <!-- Main Content -->
+    <main>
+        <h1>My Bookshelf</h1>
+        <p class="subtitle">
+            A collection of favorite books worth exploring.
+        </p>
+        <!-- Bookshelf Introduction -->
+        <section class="search-section">
+            <h2>Featured Books</h2>
+            <p>
+                Explore a handpicked collection of books.
+                Each book includes information retrieved
+                directly from the Open Library API.
+            </p>
+        </section>
+        <!-- Loading and Error Messages -->
+        <div
+            id="bookshelfMessage"
+            class="message"
+            role="status"
+            aria-live="polite"
+        >
+            Loading your bookshelf...
+        </div>
+        <!-- Bookshelf Book Cards -->
+        <section
+            id="bookshelfResults"
+            class="book-grid"
+            aria-label="Bookshelf collection"
+        >
+        </section>
+        <!-- Return to Search -->
+        <div style="text-align: center; margin-top: 40px;">
+            <a
+                href="index.html"
+                class="button"
+                style="display: inline-block; text-decoration: none;"
+            >
+                Explore More Books
+            </a>
+        </div>
+    </main>
+    <!-- Website Footer -->
+    <footer>
+        <p>Milestone 2 | Open Library API Project</p>
+        <p>Book information provided by Open Library.</p>
+    </footer>
+    <!-- Bookshelf JavaScript -->
+    <script src="bookshelf.js"></script>
+</body>
+
+</html>
