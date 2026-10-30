@@ -1,3 +1,6 @@
+let allBooks = [];
+let currentPage = 1;
+const booksPerPage = 10;
 $(document).ready(function () {
     // Search for books when the form is submitted.
     $("#search-form").on("submit", function (event) {
@@ -31,7 +34,9 @@ $(document).ready(function () {
                 $("#search-message").text(
                     "Found " + books.length + " books."
                 );
-                displayBooks(books.slice(0, 10));
+                allBooks = books;
+                currentPage = 1;
+                displayBooks(allBooks.slice(0,booksPerPage));
             },
             error: function () {
                 $("#search-message").text(
@@ -62,7 +67,42 @@ $(document).ready(function () {
             card.append($("<p>").text("By " + author));
             bookGrid.append(card);
         });
-        $("#results-section").append(bookGrid);
+    $("#results-section").append(bookGrid);
+        displayPagination();
     }
-
+function showPage(page) {
+    const totalPages = Math.ceil(allBooks.length / booksPerPage);
+    if (page < 1 || page > totalPages) {
+        return;
+    }
+    currentPage = page;
+    const start = (currentPage - 1) * booksPerPage;
+    const end = start + booksPerPage;
+    $("#results-section").find(".book-grid").remove();
+    displayBooks(allBooks.slice(start, end));
+}
+function displayPagination() {
+    $("#pagination").remove();
+    const totalPages = Math.ceil(allBooks.length / booksPerPage);
+    if (totalPages <= 1) {
+        return;
+    }
+    const pagination = $("<div>").attr("id", "pagination");
+    const previousButton = $("<button>")
+        .text("Previous")
+        .prop("disabled", currentPage === 1)
+        .on("click", function () {
+            showPage(currentPage - 1);
+        });
+    const pageInfo = $("<span>")
+        .text(" Page " + currentPage + " of " + totalPages + " ");
+    const nextButton = $("<button>")
+        .text("Next")
+        .prop("disabled", currentPage === totalPages)
+        .on("click", function () {
+            showPage(currentPage + 1);
+        });
+    pagination.append(previousButton, pageInfo, nextButton);
+    $("#results-section").append(pagination);
+}
 });
