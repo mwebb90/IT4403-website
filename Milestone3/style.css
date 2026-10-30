@@ -1,4 +1,4 @@
-{
+* {
 box-sizing: border-box;
 }
 body {
@@ -151,60 +151,11 @@ button {
 padding: 11px 16px;
 }
 }
-html {
-box-sizing: border-box;
-}
-, ::before, ::after {
-box-sizing: inherit;
-}
-body {
-margin: 0;
-min-height: 100vh;
-text-align: center;
-}
-main {
-width: 100%;
-max-width: 1000px;
-margin: 40px auto;
-padding: 0 20px;
-}
-section {
-width: 100%;
-margin: 0 auto 28px;
-padding: 35px 25px;
-text-align: center;
-}
 .book-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-gap: 20px;
-max-width: 850px;
-margin: 25px auto 0;
-}
-.book-card {
-width: 100%;
-text-align: center;
-}
-input[type="text"] {
-display: block;
-width: 100%;
-max-width: 450px;
-margin: 15px auto;
-}
-#pagination-section,
-#details-section {
-text-align: center;
-}
-@media (max-width: 600px) {
-main {
-margin: 20px auto;
-padding: 0 12px;
-}
-section {
-padding: 25px 15px;
-}
-.book-grid {
-grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: 12px;
-}
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+  justify-content: center;
+  gap: 20px;
+  max-width: 900px:
+  margin: 25px auto 0;
 }
