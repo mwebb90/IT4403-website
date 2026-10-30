@@ -1,17 +1,25 @@
-* {
+/* Milestone 3 - Book Search Application /
+/* General page styling /
+{
 box-sizing: border-box;
+}
+html {
+scroll-behavior: smooth;
 }
 body {
 margin: 0;
+min-height: 100vh;
 font-family: Arial, Helvetica, sans-serif;
-background-color: #f7f9fc;
+background-color: #f4f7fb;
 color: #253247;
 line-height: 1.6;
+text-align: center;
 }
 /* Header /
 header {
+width: 100%;
 text-align: center;
-padding: 55px 20px 35px;
+padding: 45px 20px 35px;
 background-color: #ffffff;
 border-bottom: 1px solid #e2e8f0;
 }
@@ -21,90 +29,132 @@ font-size: 36px;
 color: #244a73;
 }
 header p {
+margin: 12px auto 0;
+max-width: 650px;
 color: #64748b;
-margin-top: 12px;
+font-size: 17px;
 }
-/* Main page layout /
+/* Main page container /
 main {
+width: 100%;
 max-width: 1100px;
 margin: 35px auto;
 padding: 0 20px;
+text-align: center;
 }
 /* Content sections /
 section {
-background: #ffffff;
-padding: 30px;
-margin-bottom: 28px;
-border-radius: 12px;
-box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+width: 100%;
+margin: 0 auto 28px;
+padding: 35px 25px;
+background-color: #ffffff;
+border-radius: 14px;
+box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
 text-align: center;
 }
 section h2 {
+margin: 0 0 22px;
 color: #244a73;
 font-size: 25px;
-margin-top: 0;
-margin-bottom: 22px;
+text-align: center;
+}
+section p {
+text-align: center;
 }
 /* Search input /
 input[type="text"] {
+display: block;
 width: 100%;
 max-width: 450px;
-padding: 13px 15px;
-border: 1px solid #cbd5e1;
-border-radius: 7px;
+margin: 15px auto;
+padding: 14px 16px;
 font-size: 16px;
+border: 1px solid #cbd5e1;
+border-radius: 8px;
+background-color: #ffffff;
+text-align: center;
+}
+input[type="text"]:focus {
+outline: none;
+border-color: #2764a5;
+box-shadow: 0 0 0 3px rgba(39, 100, 165, 0.12);
 }
 /* Buttons /
 button {
+display: inline-block;
 background-color: #2764a5;
-color: white;
+color: #ffffff;
 border: none;
-border-radius: 7px;
-padding: 12px 22px;
+border-radius: 8px;
+padding: 13px 24px;
+margin: 8px 5px;
 font-size: 15px;
+font-weight: bold;
 cursor: pointer;
-margin: 6px;
+transition: background-color 0.2s, transform 0.2s;
 }
 button:hover {
 background-color: #194c80;
+transform: translateY(-2px);
 }
 button:disabled {
 background-color: #94a3b8;
 cursor: not-allowed;
+transform: none;
 }
-/* Book display /
+/* Book results grid /
 .book-grid {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+grid-template-columns: repeat(
+auto-fit,
+minmax(180px, 220px)
+);
+justify-content: center;
+align-items: stretch;
 gap: 22px;
-margin-top: 25px;
+width: 100%;
+max-width: 950px;
+margin: 25px auto 0;
+padding: 10px 0;
 }
+/* Book cards /
 .book-card {
+width: 100%;
 padding: 20px 15px;
+background-color: #ffffff;
 border: 1px solid #e2e8f0;
-border-radius: 10px;
-background: #ffffff;
+border-radius: 12px;
 text-align: center;
+box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 transition: transform 0.2s, box-shadow 0.2s;
 }
 .book-card:hover {
 transform: translateY(-4px);
-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 .book-card img {
-height: 170px;
+display: block;
+height: 180px;
 max-width: 100%;
 object-fit: contain;
-margin-bottom: 12px;
+margin: 0 auto 15px;
+border-radius: 5px;
 }
 .book-card h3 {
-font-size: 16px;
-color: #2764a5;
+margin: 10px 0;
+color: #244a73;
+font-size: 17px;
+line-height: 1.4;
+}
+.book-card p {
 margin: 8px 0;
+font-size: 14px;
+color: #64748b;
 }
 /* Pagination /
 #pagination-section {
 text-align: center;
+margin: 25px auto;
 }
 #pagination-section button {
 min-width: 100px;
@@ -114,18 +164,26 @@ min-width: 100px;
 text-align: center;
 }
 #details-section img {
+display: block;
 max-height: 250px;
 max-width: 100%;
 object-fit: contain;
-margin: 15px auto;
+margin: 20px auto;
+}
+#details-section h2,
+#details-section h3,
+#details-section p {
+text-align: center;
 }
 /* Messages /
 .message {
-padding: 14px;
-margin: 15px 0;
-border-radius: 7px;
+max-width: 700px;
+padding: 15px;
+margin: 20px auto;
+border-radius: 8px;
 background-color: #edf4fb;
 color: #244a73;
+text-align: center;
 }
 /* Links /
 a {
@@ -137,25 +195,42 @@ text-decoration: underline;
 }
 /* Mobile responsiveness /
 @media (max-width: 600px) {
+header {
+padding: 35px 15px;
+}
 header h1 {
 font-size: 28px;
 }
+main {
+margin: 20px auto;
+padding: 0 12px;
+}
 section {
-padding: 20px 15px;
+padding: 25px 15px;
+}
+section h2 {
+font-size: 22px;
 }
 .book-grid {
-grid-template-columns: repeat(2, minmax(0, 1fr));
+grid-template-columns: repeat(
+2,
+minmax(0, 1fr)
+);
 gap: 12px;
+}
+.book-card {
+padding: 15px 10px;
+}
+.book-card img {
+height: 150px;
 }
 button {
 padding: 11px 16px;
 }
 }
+@media (max-width: 380px) {
 .book-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
-  justify-content: center;
-  gap: 20px;
-  max-width: 900px:
-  margin: 25px auto 0;
+grid-template-columns: 1fr;
+max-width: 250px;
+}
 }
