@@ -128,6 +128,6 @@ $(document).ready(function () {
             pageInfo,
             nextButton
         );
-        $("#results-section").append(pagination);
+        $("#pagination-container").empty().append(pagination);
     }
 });
