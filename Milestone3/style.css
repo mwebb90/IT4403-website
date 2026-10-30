@@ -34,7 +34,7 @@ max-width: 650px;
 color: #64748b;
 font-size: 17px;
 }
-/* Main page container /
+/* Main page container */
 main {
 width: 100%;
 max-width: 1100px;
@@ -42,7 +42,7 @@ margin: 35px auto;
 padding: 0 20px;
 text-align: center;
 }
-/* Content sections /
+/* Content sections */
 section {
 width: 100%;
 margin: 0 auto 28px;
@@ -61,7 +61,7 @@ text-align: center;
 section p {
 text-align: center;
 }
-/* Search input /
+/* Search input */
 input[type="text"] {
 display: block;
 width: 100%;
@@ -79,7 +79,7 @@ outline: none;
 border-color: #2764a5;
 box-shadow: 0 0 0 3px rgba(39, 100, 165, 0.12);
 }
-/* Buttons /
+/* Buttons */
 button {
 display: inline-block;
 background-color: #2764a5;
@@ -117,7 +117,7 @@ max-width: 950px;
 margin: 25px auto 0;
 padding: 10px 0;
 }
-/* Book cards /
+/* Book cards */
 .book-card {
 width: 100%;
 padding: 20px 15px;
@@ -151,7 +151,7 @@ margin: 8px 0;
 font-size: 14px;
 color: #64748b;
 }
-/* Pagination /
+/* Pagination */
 #pagination-section {
 text-align: center;
 margin: 25px auto;
@@ -175,7 +175,7 @@ margin: 20px auto;
 #details-section p {
 text-align: center;
 }
-/* Messages /
+/* Messages */
 .message {
 max-width: 700px;
 padding: 15px;
@@ -185,7 +185,7 @@ background-color: #edf4fb;
 color: #244a73;
 text-align: center;
 }
-/* Links /
+/* Links */
 a {
 color: #2764a5;
 text-decoration: none;
@@ -193,7 +193,7 @@ text-decoration: none;
 a:hover {
 text-decoration: underline;
 }
-/* Mobile responsiveness /
+/* Mobile responsiveness */
 @media (max-width: 600px) {
 header {
 padding: 35px 15px;
