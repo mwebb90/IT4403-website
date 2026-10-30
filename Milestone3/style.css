@@ -1,5 +1,5 @@
-/* Milestone 3 - Book Search Application /
-/* General page styling /
+/* Milestone 3 - Book Search Application */
+/* General page styling */
 * {
 box-sizing: border-box;
 }
@@ -15,7 +15,7 @@ color: #253247;
 line-height: 1.6;
 text-align: center;
 }
-/* Header /
+/* Header */
 header {
 width: 100%;
 text-align: center;
