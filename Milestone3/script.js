@@ -105,4 +105,5 @@ function displayPagination() {
     pagination.append(previousButton, pageInfo, nextButton);
     $("#results-section").append(pagination);
 }
+}
 });
