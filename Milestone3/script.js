@@ -236,5 +236,67 @@ $(document).ready(function () {
             nextButton
         );
         $("#pagination-container").empty().append(pagination);
+    function loadFeaturedCollection() {
+        const section = $("#collection-section");
+        section.find(".featured-grid, .collection-message").remove();
+        const message = $("<p>")
+            .addClass("collection-message")
+            .text("Loading fantasy books...");
+        section.append(message);
+        $.ajax({
+            url: "https://openlibrary.org/subjects/fantasy.json",
+            method: "GET",
+            data: {
+                limit: 10
+            },
+            dataType: "json",
+            success: function (response) {
+                message.remove();
+                const books = response.works || [];
+                if (books.length === 0) {
+                    section.append(
+                        $("<p>")
+                            .addClass("collection-message")
+                            .text("No featured books available.")
+                    );
+                    return;
+                }
+                const grid = $("<div>").addClass("book-grid featured-grid");
+                books.slice(0, 10).forEach(function (book) {
+                    const title = book.title || "Unknown Title";
+                    const authors = (book.authors || [])
+                        .map(function (author) {
+                            return author.name;
+                        })
+                        .join(", ") || "Unknown Author";
+                    const card = $("<div>").addClass("book-card");
+                    if (book.cover_id) {
+                        card.append(
+                            $("<img>")
+                                .attr(
+                                    "src",
+                                    "https://covers.openlibrary.org/b/id/" +
+                                    book.cover_id + "-M.jpg"
+                                )
+                                .attr("alt", "Cover of " + title)
+                        );
+                    } else {
+                        card.append(
+                            $("<p>").text("No cover available")
+                        );
+                    }
+                    card.append($("<h3>").text(title));
+                    card.append($("<p>").text("By " + authors));
+                    grid.append(card);
+                });
+                section.append(grid);
+            },
+            error: function () {
+                message.text(
+                    "Unable to load featured books. Please try again."
+                );
+            }
+        });
     }
+    loadFeaturedCollection();
 });
