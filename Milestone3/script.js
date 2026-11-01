@@ -236,6 +236,7 @@ $(document).ready(function () {
             nextButton
         );
         $("#pagination-container").empty().append(pagination);
+    }
     function loadFeaturedCollection() {
         const section = $("#collection-section");
         section.find(".featured-grid, .collection-message").remove();
