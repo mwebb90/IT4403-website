@@ -14,7 +14,8 @@ $(document).ready(function () {
     function searchBooks(searchTerm) {
         $("#search-message").text("Searching for books...");
         $("#results-section").find(".book-grid").remove();
-        $("#pagination").remove();
+        $("#pagination-container").empty();
+        $("#details-section").find(".book-details").remove();
         allBooks = [];
         currentPage = 1;
         $.ajax({
@@ -83,9 +84,115 @@ $(document).ready(function () {
             }
             card.append($("<h3>").text(title));
             card.append($("<p>").text("By " + author));
+            card.css("cursor", "pointer");
+            card.attr("tabindex", "0");
+            card.attr("role", "button");
+            card.on("click", function () {
+                loadBookDetails(book);
+            });
+            card.on("keydown", function (event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    loadBookDetails(book);
+                }
+            });
             bookGrid.append(card);
         });
         $("#results-section").append(bookGrid);
+    }
+    function loadBookDetails(book) {
+        const detailsSection = $("#details-section");
+        detailsSection.find(".book-details").remove();
+        const details = $("<div>").addClass("book-details");
+        details.append(
+            $("<p>").text("Loading book details...")
+        );
+        detailsSection.append(details);
+        const workId = book.key;
+        if (!workId || !workId.startsWith("/works/")) {
+            details.empty().append(
+                $("<p>").text("Book details are unavailable.")
+            );
+            return;
+        }
+        $.ajax({
+            url: "https://openlibrary.org" + workId + ".json",
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                details.empty();
+                const title = response.title || book.title || "Unknown Title";
+                details.append($("<h3>").text(title));
+                details.append($("<p>").text("Work ID: " + workId));
+                if (book.cover_i) {
+                    details.append(
+                        $("<img>")
+                            .attr(
+                                "src",
+                                "https://covers.openlibrary.org/b/id/" +
+                                book.cover_i + "-M.jpg"
+                            )
+                            .attr("alt", "Cover of " + title)
+                    );
+                }
+                const authors = book.author_name
+                    ? book.author_name.join(", ")
+                    : "Unknown Author";
+                details.append(
+                    $("<p>").text("Author(s): " + authors)
+                );
+                let description = "No description available.";
+                if (typeof response.description === "string") {
+                    description = response.description;
+                } else if (
+                    response.description &&
+                    response.description.value
+                ) {
+                    description = response.description.value;
+                }
+                details.append(
+                    $("<p>").text("Description: " + description)
+                );
+                const subjects = response.subjects || [];
+                details.append(
+                    $("<h4>").text("Subjects")
+                );
+                if (subjects.length > 0) {
+                    const subjectList = $("<ul>");
+                    subjects.slice(0, 10).forEach(function (subject) {
+                        subjectList.append(
+                            $("<li>").text(subject)
+                        );
+                    });
+                    details.append(subjectList);
+                } else {
+                    details.append(
+                        $("<p>").text("No subjects available.")
+                    );
+                }
+                details.append(
+                    $("<a>")
+                        .attr(
+                            "href",
+                            "https://openlibrary.org" + workId
+                        )
+                        .attr("target", "_blank")
+                        .attr("rel", "noopener noreferrer")
+                        .text("View on Open Library")
+                );
+            },
+            error: function () {
+                details.empty().apend(
+                    $("<p>").text(
+                        "Unable to load book details. Please try again."
+                    )
+                );
+            }
+        });
+        detailsSection[0].scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     }
     function displayPagination() {
         $("#pagination").remove();
