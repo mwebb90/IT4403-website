@@ -1,1 +1,46 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Library | Milestone 3</title>
+    <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+    <header>
+        <h1>Open Library Book Explorer</h1>
+        <p>Discover books, explore collections, and find your next great read.</p>
+    </header>
+    <main>
+        <section id="search-section">
+    <h2>Search for Books</h2>
+    <p>Enter a book title or keyword to discover your next read.</p>
+    <form id="search-form">
+        <input
+            type="text"
+            id="search-input"
+            placeholder="Enter a book title or keyword"
+            aria-label="Search for books"
+            required
+        >
+        <button type="submit" id="search-button">Search Books</button>
+    </form>
+    <p id="search-message" role="status" aria-live="polite"></p>
+</section>
+        <section id="results-section">
+            <h2>Search Results</h2>
+        </section>
+        <section id="pagination-section">
+           <div id="pagination-container"></div>
+        </section>
+        <section id="details-section">
+            <h2>Book Details</h2>
+        </section>
+        <section id="collection-section">
+            <h2>Featured Book Collection</h2>
+        </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
