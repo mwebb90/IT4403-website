@@ -30,6 +30,26 @@
         <section id="results-section">
             <h2>Search Results</h2>
         </section>
+        <script id="book-results-template" type="x-tmpl-mustache">
+  {{#books}}
+  <article class="book-card">
+    {{#cover}}
+    <img src="{{cover}}" alt="Cover of {{title}}">
+    {{/cover}}
+    {{^cover}}
+    <p>Cover not available</p>
+    {{/cover}}
+    <h3>{{title}}</h3>
+    <p>{{author}}</p>
+    <button type="button" class="book-details-button" data-work-id="{{workId}}">
+      View Details
+    </button>
+  </article>
+  {{/books}}
+  {{^books}}
+  <p>No books found.</p>
+  {{/books}}
+</script>
         <section id="pagination-section">
            <div id="pagination-container"></div>
         </section>
