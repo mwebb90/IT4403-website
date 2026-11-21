@@ -97,19 +97,32 @@ $(document).ready(function () {
             }
         });
     }
-    function showPage(page) {
-        const totalPages = Math.ceil(allBooks.length / booksPerPage);
-        if (page < 1 || page > totalPages) return;
-        currentPage = page;
-        resultsSection.find(".book-grid").remove();
-        const grid = $("<div>").addClass("book-grid");
-        const start = (page - 1) * booksPerPage;
-        allBooks.slice(start, start + booksPerPage).forEach(function (book) {
-            grid.append(makeBookCard(book, false));
-        });
-        resultsSection.append(grid);
-        displayPagination(totalPages);
-    }
+  function showPage(page) {
+    const totalPages = Math.ceil(allBooks.length / booksPerPage);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    resultsSection.find(".book-grid").remove();
+    const start = (page - 1) * booksPerPage;
+    const pageBooks = allBooks.slice(start, start + booksPerPage);
+    const books = pageBooks.map(function(book) {
+        return {
+            title: book.title || "Unknown Title",
+            author: book.author_name
+                ? book.author_name.join(", ")
+                : "Unknown Author",
+            cover: book.cover_i
+                ? "https://covers.openlibrary.org/b/id/" + book.cover_i + "-M.jpg"
+                : "",
+            workId: book.key
+        };
+    });
+    const template = $("#book-results-template").html();
+    const rendered = Mustache.render(template, { books: books });
+    const grid = $("<div>").addClass("book-grid");
+    grid.html(rendered);
+    resultsSection.append(grid);
+    displayPagination(totalPages);
+}
     function displayPagination(totalPages) {
         paginationContainer.empty();
         if (totalPages <= 1) return;
