@@ -8,6 +8,18 @@ $(document).ready(function () {
     const paginationContainer = $("#pagination-container");
     let searchRequest = null;
     let detailRequest = null;
+    $("#grid-view-btn").on("click", function () {
+    $("#grid-view-btn").addClass("active");
+    $("#list-view-btn").removeClass("active");
+    resultsSection.find(".book-grid")
+        .removeClass("book-list");
+});
+$("#list-view-btn").on("click", function () {
+    $("#list-view-btn").addClass("active");
+    $("#grid-view-btn").removeClass("active");
+    resultsSection.find(".book-grid")
+        .addClass("book-list");
+});
     $("#search-form").on("submit", function (event) {
         event.preventDefault();
         const term = String($("#search-input").val() || "").trim();
