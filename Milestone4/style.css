@@ -232,3 +232,42 @@ grid-template-columns: 1fr;
 max-width: 250px;
 }
 }
+.view-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 950px;
+  margin: 25px auto;
+}
+.book-list .book-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-align: left;
+}
+.book-list .book-card img {
+  width: 90px;
+  height: 130px;
+  object-fit: contain;
+  margin: 0;
+}
+.book-list .book-card h3,
+.book-list .book-card p {
+  text-align: left;
+}
+@media (max-width: 600px) {
+  .book-list .book-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .book-list .book-card h3,
+  .book-list .book-card p {
+    text-align: center;
+  }
+}
