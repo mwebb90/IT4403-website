@@ -121,6 +121,9 @@ $(document).ready(function () {
     const grid = $("<div>").addClass("book-grid");
     grid.html(rendered);
     resultsSection.append(grid);
+    if ($("#list-view-btn").hasClass("active")){
+        grid.addClass("book-list");
+    }
     displayPagination(totalPages);
 }
     function displayPagination(totalPages) {
